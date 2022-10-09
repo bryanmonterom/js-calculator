@@ -23,6 +23,15 @@ function divide() {
 
 }
 
+function percentage() {
+    setDisplayValue(getDisplayValue() / 100)
+}
+
+function inverse() {
+    setDisplayValue(getDisplayValue()*-1)
+}
+
+
 //Math Operations
 
 function operate(a, operator, b) {
@@ -35,6 +44,8 @@ function operate(a, operator, b) {
             return multiply(+a, +b);
         case '/':
             return divide(+a, +b);
+        case '%':
+            return divide((+a)/100);
         default:
             break;
     }
@@ -69,7 +80,7 @@ function populateDisplay(value) {
 function getResult() {
 
 
-    
+
     // if (typeof operandB == "undefined" ) {
     //     operandB = getDisplayValue();
     // }
@@ -93,56 +104,73 @@ function prepareOperation(value) {
         operator = value.target.attributes.value.value;
         // setDisplayValue(operandA)
         clearDisplay();
-
     }
-    else{
+    else {
         operandA = getDisplayValue();
-
         clearDisplay();
     }
     operator = value.target.attributes.value.value;
-
-    // if (operandA !== 0 && operandB !== 0) {
-    //     // operandA = getResult();
-    //     // clearDisplay();
-    //     // setDisplayValue(operandA)
-
-    // }
-  
-    //    console.log(operatorPressed);
 
 }
 
 
 
+function appendDecimal(){
+    const display = document.getElementById('display');
+    let displayArray = display.textContent.split('')
+    if(!displayArray.includes('.')){
+        display.textContent +='.';
+    }
+}
+
+function CleanAll(){
+    operandB=0;
+    operandA=0;
+    operator = '';
+    clearDisplay();
+   }
 
 //Events Listeners
 
-function addOperandEventLister() {
+function addOperandEventListener() {
     const operands = document.querySelectorAll('[data-type="operand"]');
     operands.forEach(operand => {
         operand.addEventListener('click', populateDisplay);
     })
     // console.log(operands);
 }
-function addOperatorEventLister() {
+function addOperatorEventListener() {
     const operators = document.querySelectorAll('[data-type="operator"]');
     operators.forEach(operator => {
         operator.addEventListener('click', prepareOperation);
     })
     // console.log(operands);
 }
-function addEqualEventLister() {
+function addEqualEventListener() {
     const operator = document.querySelector('[data-type="equal"]');
     operator.addEventListener('click', getResult);
 
     // console.log(operands);
 }
-
+function addDecimalEventListener(){
+    const operator = document.querySelector('[data-type="decimal"]');
+    operator.addEventListener('click', appendDecimal);
+}
+function percentangeEventListener(){
+    const operator = document.querySelector('[data-type="percentange"]');
+    operator.addEventListener('click', percentage);
+}
+function inverseEventListener(){
+    const operator = document.querySelector('[data-type="inverse"]');
+    operator.addEventListener('click', inverse);
+}
 //Events Listeners
 
 
-addOperandEventLister();
-addOperatorEventLister();
-addEqualEventLister();
+addOperandEventListener();
+addOperatorEventListener();
+addEqualEventListener();
+addDecimalEventListener();
+percentangeEventListener();
+inverseEventListener();
 
