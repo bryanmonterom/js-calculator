@@ -164,6 +164,11 @@ function inverseEventListener(){
     const operator = document.querySelector('[data-type="inverse"]');
     operator.addEventListener('click', inverse);
 }
+
+function clearEventListener(){
+    const operator = document.querySelector('[data-type="clean"]');
+    operator.addEventListener('click', CleanAll);
+}
 //Events Listeners
 
 
@@ -173,4 +178,5 @@ addEqualEventListener();
 addDecimalEventListener();
 percentangeEventListener();
 inverseEventListener();
+clearEventListener();
 
