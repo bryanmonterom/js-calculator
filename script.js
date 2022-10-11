@@ -71,6 +71,28 @@ function populateDisplay(value) {
     setDisplayValue(getDisplayValue() + valuePresed);
 
 }
+
+function populateDisplaywithKeyboard(value) {
+    if(value.key == '.'){
+        appendDecimal()
+        return;
+    } if(value.key == '%'){
+        percentage()
+        return;
+    }if(value.key == '+' || value.key== "*" ||value.key== '-' || value.key == "/"){
+        prepareOperation(value.key,"key");
+        return
+    }
+    if(value.key >= 0  && value.key <= 9){
+        setDisplayValue(getDisplayValue() + value.key);
+        return
+    }
+    
+    if(value.key == '='){
+        getResult()
+        return;
+    }
+}
 //Display Handling
 
 
@@ -86,8 +108,6 @@ function getResult() {
     // }
     operandB = getDisplayValue();
 
-
-
     clearDisplay();
 
     let results = operate(operandA, operator, operandB)
@@ -97,21 +117,23 @@ function getResult() {
     return results;
 }
 
-function prepareOperation(value) {
+function prepareOperation(value,source) {
     if (/*operandA !== 0 &&*/ typeof operandA !== "undefined") {
         operandB = getDisplayValue();
         operandA = getResult();
-        operator = value.target.attributes.value.value;
+        operator  = source == "key" ? value:value.target.attributes.value.value;
         // setDisplayValue(operandA)
-        clearDisplay();
+        // clearDisplay();
     }
     else {
         operandA = getDisplayValue();
         clearDisplay();
     }
-    operator = value.target.attributes.value.value;
+    operator = source == "key" ?value :value.target.attributes.value.value;
 
 }
+
+
 
 
 
@@ -169,7 +191,7 @@ function clearEventListener(){
     const operator = document.querySelector('[data-type="clean"]');
     operator.addEventListener('click', CleanAll);
 }
-//Events Listeners
+
 
 
 addOperandEventListener();
@@ -179,4 +201,6 @@ addDecimalEventListener();
 percentangeEventListener();
 inverseEventListener();
 clearEventListener();
+window.addEventListener('keydown', populateDisplaywithKeyboard);
+
 
