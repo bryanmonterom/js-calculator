@@ -15,6 +15,9 @@
 - [HTML] 
 - [Font Awesome] 
 
+Live Demo: https://bryanmonterom.github.io/js-calculator/
+
+
 ## Screenshots
 
 
