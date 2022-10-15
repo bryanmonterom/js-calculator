@@ -123,7 +123,7 @@ function prepareOperation(value,source) {
         operandA = getResult();
         operator  = source == "key" ? value:value.target.attributes.value.value;
         // setDisplayValue(operandA)
-        // clearDisplay();
+        clearDisplay();
     }
     else {
         operandA = getDisplayValue();
